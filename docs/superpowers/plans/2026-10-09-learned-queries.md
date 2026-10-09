@@ -55,5 +55,5 @@ Interfaces: browser initialReceiver/selectGate/receive/predictState match Task 1
 
 - [x] Write and observe failing reference/JS parity and exact receipt tests; include all controls and final-query reuse.
 - [x] Implement and verify the core, data and responsive page; label resource limits and failed gates from the receipt.
-- [ ] Run complete tests, syntax and deterministic export checks; complete one fresh final review and resolve material findings.
-- [ ] Publish by guarded GitHub ref update, verify workflows and live controls, and save a verified preview.
+- [x] Run complete tests, syntax and deterministic export checks; complete one fresh final review and resolve material findings.
+- [x] Publish by guarded GitHub ref update, verify workflows and live controls, and save a verified preview.

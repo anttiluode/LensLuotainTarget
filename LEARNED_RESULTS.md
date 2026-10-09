@@ -127,3 +127,11 @@ python learned_experiment.py evaluate --weights /tmp/retrained-weights.json --ou
 ```
 
 Only NumPy is required for training. Browser/reference tests require Node.js. No test-time learning or catalogue search runs in the browser.
+
+## Verification and live demonstration
+
+The final review found no remaining publication blockers after the verification guard repair. All **42 tests ran and passed without skips**, including actual-weight browser parity. The frozen receipt reproduced from saved weights, all browser JavaScript parsed, and the data/page export was deterministic. Both unit-tests and Pages deployment succeeded for release commit `aa491bd629032940ad4f667294b505ef61282bdc`.
+
+On the live desktop page, all four trained receiver choices ran; each information-loss control forced the adaptive ablation as labelled. Three reads disabled the read button; reset restored zero new reads and zero displacement. Changing the final question preserved the acquired readings, gate display and closed read budget while changing the prediction. Transfer results matched the frozen receipt. The older supplied-history and shadow views and their new return link remained accessible. No page-origin console errors or horizontal desktop overflow were observed.
+
+[Verified preview of the learned gate and reusable final questions](docs/images/learned-queries.jpg).
