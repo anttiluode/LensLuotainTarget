@@ -6,7 +6,7 @@
 
 ![Held-out experiment and measurement geometry](results/receipt.svg)
 
-**[Open the interactive shadow-lens explainer](site/index.html)** (open the HTML in a browser; no server or dependencies). Move and edit a coded mask to see how visually different hidden images can make almost the same unmasked wall signal but different masked signals. This is a geometric explainer, not the statistical benchmark.
+[Open the interactive shadow-lens explainer!](https://anttiluode.github.io/LensLuotainTarget/site/index.html). Move and edit a coded mask to see how visually different hidden images can make almost the same unmasked wall signal but different masked signals. This is a geometric explainer, not the statistical benchmark.
 
 ## Why these three repositories meet
 
