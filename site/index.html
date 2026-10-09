@@ -31,8 +31,8 @@ const N=16,W=64,S=5,C=11,depth=.55,D=1.03,noise=.03;
 const xs=Array.from({length:N},(_,i)=>-.19+(.38/N)*(i+.5));
 const walls=Array.from({length:W},(_,i)=>-.45+.90*i/(W-1));
 // Two different high-frequency patterns whose unobstructed soft shadows are near identical.
-const a=xs.map((_,i)=>.5+.35*Math.sin(2*Math.PI*7*(i+.5)/N));
-const b=xs.map((_,i)=>.5+.35*Math.cos(2*Math.PI*7*(i+.5)/N));
+const a=xs.map((_,i)=>.5+.35*Math.sin(2*Math.PI*2*(i+.5)/N));
+const b=xs.map((_,i)=>.5+.35*Math.cos(2*Math.PI*2*(i+.5)/N));
 let cells=Array.from({length:C},()=>false),shift=0;
 const calibration=walls.map(w=>xs.reduce((acc,x)=>acc+Array.from({length:S},(_,s)=>{
  const source=x+.38/N*((s+.5)/S-.5);const r2=D*D+(w-source)**2;
