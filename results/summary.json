@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-09",
+  "protocol": "PROTOCOL.md",
+  "corrected_test_seeds": "6100..6163 (inclusive)",
+  "budget_after_initial_no_mask_view": 2,
+  "candidate_count": 8,
+  "mask_catalogue_size": 30,
+  "noise_sigma": 0.03,
+  "active": {"correct": 54, "total": 64, "accuracy": 0.84375, "mean_logloss_nats": 0.2935963463375472, "mean_entropy_bits": 0.6269401087168601},
+  "random": {"correct": 48, "total": 64, "accuracy": 0.75, "mean_logloss_nats": 0.6415154363144009, "mean_entropy_bits": 1.018179045219877},
+  "repeat": {"correct": 7, "total": 64, "accuracy": 0.109375, "mean_logloss_nats": 2.079441541679839, "mean_entropy_bits": 3.0},
+  "pilot_5100_series_reused_candidate_family": true,
+  "heldout_corrected_gates_pass": true,
+  "reproduce": "python experiment.py --start-seed 6100 --seeds 64 --budget 2"
+}

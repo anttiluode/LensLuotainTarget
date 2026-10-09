@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LensLuotainTarget — can the shadow tell?</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,Arial,sans-serif;color:#e1eaf4;background:#0e1724}
+body{max-width:1100px;margin:0 auto;padding:26px 18px 60px}a{color:#9fc7ff}p{line-height:1.55;color:#b6c8d8}h1{letter-spacing:-.04em;margin-bottom:8px}h2{margin-top:0;font-size:1.06rem}
+.panel{background:#172538;border:1px solid #33465d;border-radius:14px;padding:19px;margin-top:20px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:740px){.grid{grid-template-columns:1fr}}
+canvas{display:block;width:100%;height:auto;background:#101d2d;border-radius:8px}
+.btns{display:flex;gap:10px;flex-wrap:wrap;align-items:center}button{background:#2b4660;color:#fff;border:1px solid #5b7994;border-radius:8px;padding:10px 15px;cursor:pointer;font:inherit}button:focus-visible{outline:3px solid #9fc7ff}button:hover{background:#3a607d}
+.mask{display:flex;gap:4px;margin:14px 0}.mask button{height:39px;min-width:22px;flex:1;padding:0;border-radius:4px;background:#23384b}.mask button.on{background:#d8aa66;color:#172538}input{accent-color:#61c2b2}small{color:#a4b6cb}.stat{font-weight:700;color:#77e0c4}
+.key{display:inline-block;width:12px;height:3px;margin:0 5px 4px 10px;background:#65acff}.key.orange{background:#ffb16d}
+</style></head><body>
+<h1>Can a shadow tell two worlds apart?</h1>
+<p>Two different hidden light patterns illuminate the same wall. Without a useful occluder their signals are almost identical. Edit the mask or ask for a discriminating lens. This is a <strong>1-D geometric explainer</strong>, not a real-camera result or a reproduction of the Python benchmark.</p>
+<div class="grid">
+<section class="panel"><h2>1 · Two hidden objects</h2><canvas id="scenes" width="500" height="205" aria-label="Two hidden scene brightness patterns"></canvas><p><span class="key"></span>World A <span class="key orange"></span>World B. Which one is behind the corner? The camera cannot see them directly.</p></section>
+<section class="panel"><h2>2 · The wall measurement</h2><canvas id="wall" width="500" height="205" aria-label="Predicted wall signals for each candidate scene"></canvas><p>Separation / sensor-noise norm: <strong class="stat" id="score">—</strong>. Larger means the wall can better distinguish the two worlds at fixed noise.</p></section>
+</div>
+<section class="panel"><h2>3 · Design the observer's question</h2>
+<p>Gold cells block rays at an intermediate plane. The mask changes the linear measurement operator A, not the hidden object. Click cells to redesign it.</p>
+<div class="mask" id="mask" aria-label="Occluder mask"></div>
+<div class="btns"><button id="none">Remove mask</button><button id="plate">Square plate</button><button id="random">Random code</button><button id="choose">Find a distinguishing mask</button></div>
+<p><label>Move mask laterally: <input id="shift" type="range" min="-60" max="60" value="0" step="10"/> <span id="offset">0 cm</span></label></p>
+<p id="desc"></p>
+</section>
+<section class="panel"><h2>What this proves—and does not prove</h2><p>With fixed known geometry, another mask can expose image differences that the unmasked view nearly erases. The selection button chooses a mask using both <em>candidate predictions</em>, without using an unknown truth label; this is an illustrative oracle candidate set. This little page has no inverse solver, no real camera access, no sensor calibration, and no learned AI. The tested model, randomized candidate trials, frozen gates and results are in <a href="https://github.com/anttiluode/LensLuotainTarget">the repository</a>.</p></section>
+<script>
+'use strict';
+const N=16,W=64,S=5,C=11,depth=.55,D=1.03,noise=.03;
+const xs=Array.from({length:N},(_,i)=>-.19+(.38/N)*(i+.5));
+const walls=Array.from({length:W},(_,i)=>-.45+.90*i/(W-1));
+// Two different high-frequency patterns whose unobstructed soft shadows are near identical.
+const a=xs.map((_,i)=>.5+.35*Math.sin(2*Math.PI*7*(i+.5)/N));
+const b=xs.map((_,i)=>.5+.35*Math.cos(2*Math.PI*7*(i+.5)/N));
+let cells=Array.from({length:C},()=>false),shift=0;
+const calibration=walls.map(w=>xs.reduce((acc,x)=>acc+Array.from({length:S},(_,s)=>{
+ const source=x+.38/N*((s+.5)/S-.5);const r2=D*D+(w-source)**2;
+ return D*D/(r2*r2);
+}).reduce((u,v)=>u+v,0)/S,0));
+function forward(scene,m,offset){return walls.map((w,wi)=>xs.reduce((total,x,j)=>total+Array.from({length:S},(_,s)=>{
+ const source=x+.38/N*((s+.5)/S-.5);const middle=source+depth/D*(w-source);
+ const index=Math.floor((middle-offset+.26)/.52*C);
+ const occluded=(index>=0&&index<C&&m[index]);if(occluded)return 0;
+ const r2=D*D+(w-source)**2;return D*D/(r2*r2);
+}).reduce((u,v)=>u+v,0)/S*scene[j],0)/calibration[wi]);}
+function diff(m,offset){const p=forward(a,m,offset),q=forward(b,m,offset);const sq=p.reduce((z,v,i)=>z+(v-q[i])**2,0);
+ return {p,q,score:Math.sqrt(sq)/(noise*Math.sqrt(W))};}
+function draw(canvas,lines,range){const context=canvas.getContext('2d');let w=canvas.width,h=canvas.height;
+ context.clearRect(0,0,w,h);context.strokeStyle='#456079';context.lineWidth=1;
+ for(let i=0;i<=4;i++){let y=17+(h-35)*i/4;context.beginPath();context.moveTo(26,y);context.lineTo(w-14,y);context.stroke();}
+ for(let li=0;li<lines.length;li++){context.strokeStyle=li?'#ffb16d':'#65acff';context.lineWidth=2.5;context.beginPath();
+ const arr=lines[li];for(let i=0;i<arr.length;i++){let x=26+i/(arr.length-1)*(w-42);
+ let y=17+(range[1]-arr[i])/(range[1]-range[0])*(h-35);if(i===0)context.moveTo(x,y);else context.lineTo(x,y);}context.stroke();}
+}
+function update(){const v=diff(cells,shift);draw(document.getElementById('scenes'),[a,b],[0,1]);
+ draw(document.getElementById('wall'),[v.p,v.q],[0,1]);document.getElementById('score').textContent=v.score.toFixed(2)+' ×';
+ document.getElementById('offset').textContent=Math.round(shift*100)+' cm';
+ document.getElementById('desc').textContent=v.score<0.5?'The candidates still cast nearly indistinguishable wall signatures.':'The wall now contains a measurable distinction between the candidates (under this ideal model).';
+ document.getElementById('mask').innerHTML='';cells.forEach((on,i)=>{let bt=document.createElement('button');bt.className=on?'on':'';bt.textContent=on?'■':'·';bt.setAttribute('aria-label','Toggle mask cell '+(i+1));bt.setAttribute('aria-pressed',String(on));
+ bt.onclick=()=>{cells[i]=!cells[i];update();};document.getElementById('mask').appendChild(bt);});}
+document.getElementById('none').onclick=()=>{cells.fill(false);update();};
+document.getElementById('plate').onclick=()=>{cells=cells.map((_,i)=>i>=4&&i<=6);update();};
+document.getElementById('random').onclick=()=>{cells=cells.map(()=>Math.random()<.5);update();};
+document.getElementById('shift').oninput=e=>{shift=Number(e.target.value)/1000;update();};
+document.getElementById('choose').onclick=()=>{let best={score:-1};let rng=1337;
+ function next(){rng=(Math.imul(rng,1664525)+1013904223)>>>0;return rng/4294967296;}
+ for(let i=0;i<35;i++){const c=Array.from({length:C},()=>next()<.48);for(const off of [-.06,-.03,0,.03,.06]){
+ const cur=diff(c,off);if(cur.score>best.score)best={score:cur.score,c,off};}}
+ cells=best.c;shift=best.off;document.getElementById('shift').value=String(shift*1000);update();};
+update();
+</script></body></html>
