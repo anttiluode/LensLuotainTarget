@@ -58,7 +58,8 @@ canvas{display:block;width:100%;height:auto;background:#101d2d;border-radius:8px
 </section>
 <section class="panel"><h2>2 · Let retained answers choose the next gate</h2>
 <div class="neuron-pair"><strong id="neuron-next">Next gate</strong><span id="neuron-next-branches"></span></div>
-<svg id="neuron-cell" class="neuron-diagram" viewBox="0 0 740 310" role="img" aria-label="Twelve retained branch traces pass through selected gates to a soma and one scalar output"></svg>
+<svg id="neuron-cell" class="neuron-diagram" viewBox="0 0 740 310" role="img" aria-label="Twelve current branch traces pass through the selected gate to a soma sum before sensor noise"></svg>
+<p class="neuron-detail">This diagram shows the current traces and selected sum before noise. Received noisy readings from completed gates appear below.</p>
 <p class="neuron-detail" id="neuron-predictions"></p>
 <div class="branch-gates" id="neuron-branches" aria-label="Choose an individual branch manually"></div>
 <div class="neuron-actions"><button id="neuron-probe" class="primary">Take next reading</button><button id="neuron-reset">Reset readings</button><small>Click a numbered branch to ask your own question, or let the selected strategy choose.</small></div>
