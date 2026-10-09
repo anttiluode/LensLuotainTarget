@@ -1,0 +1,27 @@
+{
+  "S1_passed": true,
+  "receipt_sha256": "4ce5d95958b20db8c1b7944d8923505eaeac08cd62cf8c9c83adefe353f5babd",
+  "weights_seal_sha256": "bd0d6a2aa2192728e567c92cdd993521c69d746f7c4c64d02b0d2e9f0e643166",
+  "sources": {
+    "site/spike-core.js": "cdf339874a8b0e7639955525b48ea4ba0c576f668408ff3ed7f3b3c856101c80",
+    "site/spike-ui.js": "52a2c7ca2074483cb9162c9f77a907839948d2dd504b7e79f4e5d0503c919c94",
+    "make_spike_site_data.py": "65f9dc6d4b2864fafa092e721d951920e1aefe6954570be9219153e0998ad8df",
+    "tests/test_core.py": "50ba12ee9db240517ebefa27e11745e0b5ff1242d897c22ac27eb66772322a40",
+    "tests/test_learned_browser.py": "a4376dd97f50824c95f80f20d6a53af763e05b52d1656bdbf0402ee5d2f19288",
+    "tests/test_learned_experiment.py": "c214f914deaccba07dc780541fdd49c2811027ba757c0339ae33f5019681149d",
+    "tests/test_learned_export.py": "527d69ec11994d06c73ff3a1da2c19ec5bce1179c9c6c9c915017d64becb3748",
+    "tests/test_learned_receipt.py": "73719070db3aeb8d95c48b5e9e4fb89e2047d90bfc915c57d7fe2903bfa1e077",
+    "tests/test_learned_receiver.py": "63688c461d76d9eebf1845dc1fa7bea7c95a11383ff043277507995d4caaefcc",
+    "tests/test_learned_training.py": "84225948b460d5c622c8ea9f4976098485c6db8bbb78df4115f2be160cb129b5",
+    "tests/test_memory_gate_soma.py": "8d830c2bba9567dda1611cdf417eca24dde5999941381826de959fa5eac14b81",
+    "tests/test_neuron_browser.py": "cb2bee4bc80a0167d5eb99356eb1157c8f53be9557600cbd42a7c72e244e4e06",
+    "tests/test_spike_browser.py": "dc75a55f5e778606c5fedddd7068f06667d7638c246e4712e601e69881ee16ef",
+    "tests/test_spike_experiment.py": "700b6ba3ad7286bdd588f3cbd856cf4c42c345032c1cd4ec6db1f2da9093647d",
+    "tests/test_spike_export.py": "78c1ab1142661a70560585b7f160cd036957e90fd9c2631d3eef6efec14a7559",
+    "tests/test_spike_receiver.py": "bfe8bf644f4c05321047ebdd1cc7b796632f47756f10aa269c1d02454bd3342e",
+    "tests/test_spike_training.py": "5d1f3e5500e38464ac7fbb0d7b66b5337ad554481171b89b1f2d43689a21330b"
+  },
+  "command": "python -m unittest discover -s tests -v",
+  "tests": 65,
+  "note": "Exact expected gradients, observation-only boundary, matched resources, hard bits, budget and actual trained Python/JavaScript parity passed without skips."
+}

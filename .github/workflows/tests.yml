@@ -17,6 +17,8 @@ jobs:
       - run: python neuron_experiment.py --output /tmp/neuron-receipt.json
       - name: Reproduce learned receipt from sealed weights
         run: python verify_learned_receipt.py
+      - name: Reproduce learned binary receipt and verify trained browser export
+        run: python verify_spike_receipt.py
       - name: Check browser JavaScript
         run: |
           node --check site/neuron-core.js
@@ -25,3 +27,6 @@ jobs:
           node --check site/learned-core.js
           node --check site/learned-data.js
           node --check site/learned-ui.js
+          node --check site/spike-core.js
+          node --check site/spike-data.js
+          node --check site/spike-ui.js

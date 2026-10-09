@@ -29,6 +29,28 @@ This establishes an advantage for this learned interface in a small known simula
 
 [Frozen protocol](LEARNED_PROTOCOL.md), [complete results and limits](LEARNED_RESULTS.md), [receipt](results/learned_queries.json), and [all twelve selected weight sets and validation traces](results/learned_weights.json) are published. The older dictionary and optical experiments remain separate.
 
+## Learning to ask with a one-bit threshold
+
+[Run the trained binary receivers](https://anttiluode.github.io/LensLuotainTarget/site/spikes.html).
+Eight one-bit replies, continuous histories, no candidate catalogue. The receiver
+learns positive branch gates and bounded spike thresholds. A stronger fixed
+control has the same internal gate-and-threshold computation.
+
+Across 512 held-out histories and three initializations, the adaptive binary
+interface cuts answer **MSE by 36.2% versus a trained fixed schedule**, and by
+**36.5% on a withheld switching-history family**. Threshold adaptation earns a
+15.7% gain beyond adaptive gates with fixed thresholds. The additional benefit
+of adaptive branch selection is only **0.44%** versus fixed gates with adaptive
+thresholds: the stronger joint gate-and-threshold criterion **fails**.
+
+All 24 weight sets and full validation traces are retained. All controls have
+1,252 parameters and the same counted neural compute. Graded references remain
+more accurate at the same read count while communicating more than one bit.
+This is a learned querying result in a known simulator, not a biological neuron
+or general AI superiority claim. [Protocol](SPIKE_PROTOCOL.md),
+[outcomes and limits](SPIKE_RESULTS.md), [receipt](results/learned_spikes.json)
+and [sealed weights](results/spike_weights.json).
+
 ## Why these three repositories meet
 
 - [Varjoluotain](https://github.com/anttiluode/Varjoluotain) implements the 2019 ordinary-camera computational-periscopy paper: a known occluder makes hidden image components more observable. Here we use a small original **1-D analogue**, not its validated 2-D transport or its photographs.
@@ -71,12 +93,14 @@ python experiment.py                     # 64 held-out seeds, two new views
 python experiment.py --seeds 5 --output /tmp/lens-smoke.json
 python verify_learned_receipt.py         # reproduce learned held-out metrics; no retraining
 python make_learned_site_data.py --verify # export actual weights and verify browser parity
+python verify_spike_receipt.py           # reproduce frozen binary-query evaluation
+python make_spike_site_data.py --verify  # export all 24 receivers and check parity
 # Optional full retraining: move the existing weights aside first.
 python learned_experiment.py train --weights /tmp/retrained-weights.json
 python learned_experiment.py evaluate --weights /tmp/retrained-weights.json --output /tmp/retrained-receipt.json
 ```
 
-`results/summary.json` gives the frozen aggregate results; the complete detailed per-seed receipt can be regenerated deterministically with the script. Only NumPy is required. The one-page browser visual uses plain JavaScript and runs locally.
+`results/summary.json` gives the frozen aggregate results; the complete detailed per-seed receipt can be regenerated deterministically with the script. The original experiments use NumPy; binary training also uses SciPy. Browser parity requires Node.js. The browser instruments use plain JavaScript and run locally.
 
 ## The mathematical point
 
