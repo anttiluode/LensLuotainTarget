@@ -1,0 +1,185 @@
+{
+  "date": "2026-10-09",
+  "protocol": "NEURON_PROTOCOL.md",
+  "model": "abstract history traces and scalar readout; known finite candidate dictionary",
+  "conditions": [
+    {
+      "config": {
+        "setup": {
+          "branches": 12,
+          "history_steps": 32,
+          "candidates": 8,
+          "noise": 0.03,
+          "read_damage": 0.0
+        },
+        "budget": 3,
+        "catalogue_size": 24,
+        "retained_branch_values": 12,
+        "observer_candidate_state_values": 96,
+        "observer_belief_values": 8,
+        "seed_range": [
+          9100,
+          9611
+        ]
+      },
+      "summary": {
+        "active": {
+          "correct": 294,
+          "total": 512,
+          "accuracy": 0.57421875,
+          "mean_logloss": 1.062062886825566,
+          "mean_entropy_bits": 1.5398914648094373,
+          "forecast_nrmse": 0.39836267354624955,
+          "mean_disturbance": 0.0
+        },
+        "random": {
+          "correct": 208,
+          "total": 512,
+          "accuracy": 0.40625,
+          "mean_logloss": 1.4632856899459266,
+          "mean_entropy_bits": 2.1525074138891096,
+          "forecast_nrmse": 0.6155483722752163,
+          "mean_disturbance": 0.0
+        },
+        "fixed": {
+          "correct": 216,
+          "total": 512,
+          "accuracy": 0.421875,
+          "mean_logloss": 1.3828111479981935,
+          "mean_entropy_bits": 1.9561108861467853,
+          "forecast_nrmse": 0.5734959761072134,
+          "mean_disturbance": 0.0
+        },
+        "open_loop": {
+          "correct": 272,
+          "total": 512,
+          "accuracy": 0.53125,
+          "mean_logloss": 1.1270168543184689,
+          "mean_entropy_bits": 1.613929052974552,
+          "forecast_nrmse": 0.4406023268172426,
+          "mean_disturbance": 0.0
+        },
+        "post_mix": {
+          "correct": 54,
+          "total": 512,
+          "accuracy": 0.10546875,
+          "mean_logloss": 2.079441541679836,
+          "mean_entropy_bits": 3.0,
+          "forecast_nrmse": 1.0086980342577074,
+          "mean_disturbance": 0.0
+        },
+        "erased": {
+          "correct": 60,
+          "total": 512,
+          "accuracy": 0.1171875,
+          "mean_logloss": 2.0794415416798353,
+          "mean_entropy_bits": 3.0,
+          "forecast_nrmse": 1.0086980342577074,
+          "mean_disturbance": 1.0
+        }
+      },
+      "comparisons": {
+        "active_minus_random_accuracy": 0.16796875,
+        "random_minus_active_logloss": 0.4012228031203606,
+        "open_loop_minus_active_logloss": 0.06495396749290294,
+        "active_open_loop_sequence_difference_fraction": 0.875
+      },
+      "gates": {
+        "G1_initial_ambiguity": true,
+        "G2_active_vs_random": true,
+        "G3_retained_context_vs_open_loop": true,
+        "G4_information_loss_controls": true,
+        "G5_read_disturbance": true
+      }
+    },
+    {
+      "config": {
+        "setup": {
+          "branches": 12,
+          "history_steps": 32,
+          "candidates": 8,
+          "noise": 0.03,
+          "read_damage": 0.25
+        },
+        "budget": 3,
+        "catalogue_size": 24,
+        "retained_branch_values": 12,
+        "observer_candidate_state_values": 96,
+        "observer_belief_values": 8,
+        "seed_range": [
+          9100,
+          9611
+        ]
+      },
+      "summary": {
+        "active": {
+          "correct": 290,
+          "total": 512,
+          "accuracy": 0.56640625,
+          "mean_logloss": 1.0882266516038197,
+          "mean_entropy_bits": 1.5621491726850305,
+          "forecast_nrmse": 0.41132301142323785,
+          "mean_disturbance": 0.16432929150262438
+        },
+        "random": {
+          "correct": 209,
+          "total": 512,
+          "accuracy": 0.408203125,
+          "mean_logloss": 1.4662703160997133,
+          "mean_entropy_bits": 2.1560448135877586,
+          "forecast_nrmse": 0.6153308412702674,
+          "mean_disturbance": 0.1021253908915137
+        },
+        "fixed": {
+          "correct": 216,
+          "total": 512,
+          "accuracy": 0.421875,
+          "mean_logloss": 1.3828111479981935,
+          "mean_entropy_bits": 1.9561108861467853,
+          "forecast_nrmse": 0.5734959761072134,
+          "mean_disturbance": 0.1215417564486062
+        },
+        "open_loop": {
+          "correct": 269,
+          "total": 512,
+          "accuracy": 0.525390625,
+          "mean_logloss": 1.1352789866848567,
+          "mean_entropy_bits": 1.6243084429199346,
+          "forecast_nrmse": 0.4417336345065764,
+          "mean_disturbance": 0.160754392903727
+        },
+        "post_mix": {
+          "correct": 58,
+          "total": 512,
+          "accuracy": 0.11328125,
+          "mean_logloss": 2.079441541679836,
+          "mean_entropy_bits": 3.0,
+          "forecast_nrmse": 1.0086980342577074,
+          "mean_disturbance": 3.8035922665997675e-16
+        },
+        "erased": {
+          "correct": 60,
+          "total": 512,
+          "accuracy": 0.1171875,
+          "mean_logloss": 2.0794415416798353,
+          "mean_entropy_bits": 3.0,
+          "forecast_nrmse": 1.0086980342577074,
+          "mean_disturbance": 1.0
+        }
+      },
+      "comparisons": {
+        "active_minus_random_accuracy": 0.158203125,
+        "random_minus_active_logloss": 0.37804366449589355,
+        "open_loop_minus_active_logloss": 0.04705233508103701,
+        "active_open_loop_sequence_difference_fraction": 0.849609375
+      },
+      "gates": {
+        "G1_initial_ambiguity": true,
+        "G2_active_vs_random": true,
+        "G3_retained_context_vs_open_loop": true,
+        "G4_information_loss_controls": true,
+        "G5_read_disturbance": true
+      }
+    }
+  ]
+}

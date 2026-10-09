@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>LensLuotainTarget — can the shadow tell?</title>
+<title>LensLuotainTarget — shadows, memory and revealing questions</title>
+<link rel="stylesheet" href="neuron.css">
 <style>
 :root{color-scheme:dark;font-family:system-ui,Arial,sans-serif;color:#e1eaf4;background:#0e1724}
 body{max-width:1100px;margin:0 auto;padding:26px 18px 60px}a{color:#9fc7ff}p{line-height:1.55;color:#b6c8d8}h1{letter-spacing:-.04em;margin-bottom:8px}h2{margin-top:0;font-size:1.06rem}
@@ -11,6 +12,13 @@ canvas{display:block;width:100%;height:auto;background:#101d2d;border-radius:8px
 .mask{display:flex;gap:4px;margin:14px 0}.mask button{height:39px;min-width:22px;flex:1;padding:0;border-radius:4px;background:#23384b}.mask button.on{background:#d8aa66;color:#172538}input{accent-color:#61c2b2}small{color:#a4b6cb}.stat{font-weight:700;color:#77e0c4}
 .key{display:inline-block;width:12px;height:3px;margin:0 5px 4px 10px;background:#65acff}.key.orange{background:#ffb16d}
 </style></head><body>
+<div class="brand"><strong>LensLuotainTarget</strong><span>Choose what becomes observable</span></div>
+<nav class="view-tabs" role="tablist" aria-label="Experiments">
+<button id="tab-shadow" role="tab" aria-controls="shadow-view" aria-selected="true">Shadow experiment</button>
+<button id="tab-neuron" role="tab" aria-controls="neuron-view" aria-selected="false">Memory → gate → soma</button>
+</nav>
+<div id="shadow-view" role="tabpanel" aria-labelledby="tab-shadow">
+
 <h1>Can a shadow tell two worlds apart?</h1>
 <p>Two different hidden light patterns illuminate the same wall. Without a useful occluder their signals are almost identical. Edit the mask or ask for a discriminating lens. This is a <strong>1-D geometric explainer</strong>, not a real-camera result or a reproduction of the Python benchmark.</p>
 <div class="grid">
@@ -25,6 +33,55 @@ canvas{display:block;width:100%;height:auto;background:#101d2d;border-radius:8px
 <p id="desc"></p>
 </section>
 <section class="panel"><h2>What this proves—and does not prove</h2><p>With fixed known geometry, another mask can expose image differences that the unmasked view nearly erases. The selection button chooses a mask using both <em>candidate predictions</em>, without using an unknown truth label; this is an illustrative oracle candidate set. This little page has no inverse solver, no real camera access, no sensor calibration, and no learned AI. The tested model, randomized candidate trials, frozen gates and results are in <a href="https://github.com/anttiluode/LensLuotainTarget">the repository</a>.</p></section>
+</div>
+<div id="neuron-view" role="tabpanel" aria-labelledby="tab-neuron" hidden>
+<div class="eyebrow">The next mechanism · abstract simulation</div>
+<h1>A memory can answer differently when the question changes.</h1>
+<p class="lede">Different stimulus histories leave different traces in twelve branches, yet give the same initial soma sum. Choose which branches reach the soma and see what a receiver can recover from three noisy readings.</p>
+<div class="neuron-stats">
+<div class="neuron-stat"><span>New readings</span><strong id="neuron-reading-count">0 / 3</strong></div>
+<div class="neuron-stat"><span>Observer uncertainty</span><strong id="neuron-uncertainty">3.00 bits</strong></div>
+<div class="neuron-stat"><span>Retained state changed</span><strong id="neuron-disturbance">0.0%</strong></div>
+</div>
+<section class="panel"><h2>1 · The past is retained, even when the present answer agrees</h2>
+<div class="neuron-controls">
+<label>History that actually happened<select id="neuron-history" aria-label="History that actually happened"><option value="0">History A</option><option value="1">History B</option><option value="2">History C</option><option value="3">History D</option><option value="4">History E</option><option value="5">History F</option><option value="6">History G</option><option value="7">History H</option></select></label>
+<label>Gate selection<select id="neuron-policy"><option value="active">Memory-guided</option><option value="random">Random</option><option value="fixed">Fixed branches</option><option value="open_loop">Discard selection context</option></select></label>
+<label>Gate location<select id="neuron-location"><option value="before">Before the soma sum</option><option value="after">After mixing</option></select></label>
+<label class="check"><input type="checkbox" id="neuron-retain" checked> Retain branch history</label>
+<label class="check"><input type="checkbox" id="neuron-damage" checked> Reads change memory</label>
+</div>
+<div class="grid">
+<div><div class="neuron-pair"><strong id="neuron-history-label">Two histories</strong><span>Same current input: 0</span></div><canvas id="neuron-histories" width="500" height="170" aria-label="Two earlier stimulus histories ending with the same current input"></canvas><p class="neuron-detail">Each branch retains a different leaky trace of these inputs. The blue-green and amber lines are past stimuli, not spike waveforms.</p></div>
+<div><div class="neuron-pair"><strong>Same initial soma</strong><span id="neuron-same">0.00000</span></div><p>The un-gated sum cannot distinguish these eight histories. The branch traces still differ. A gate can select a distinction before it is mixed away.</p><p class="neuron-detail">You can see the hidden history for explanation. The selector receives candidate predictions and previous readings; it never receives the true history label.</p><button id="neuron-world">Another set of histories</button></div>
+</div>
+</section>
+<section class="panel"><h2>2 · Let retained answers choose the next gate</h2>
+<div class="neuron-pair"><strong id="neuron-next">Next gate</strong><span id="neuron-next-branches"></span></div>
+<svg id="neuron-cell" class="neuron-diagram" viewBox="0 0 740 310" role="img" aria-label="Twelve retained branch traces pass through selected gates to a soma and one scalar output"></svg>
+<p class="neuron-detail" id="neuron-predictions"></p>
+<div class="branch-gates" id="neuron-branches" aria-label="Choose an individual branch manually"></div>
+<div class="neuron-actions"><button id="neuron-probe" class="primary">Take next reading</button><button id="neuron-reset">Reset readings</button><small>Click a numbered branch to ask your own question, or let the selected strategy choose.</small></div>
+<p><label>Sensor noise: <input id="neuron-noise" type="range" min="0.001" max="0.08" step="0.001" value="0.03"> <span id="neuron-noise-value">0.030</span></label></p>
+<p id="neuron-mode-note" class="neuron-note"></p>
+</section>
+<div class="grid">
+<section class="panel"><h2>3 · What the receiver gets</h2><canvas id="neuron-readings" width="500" height="170" aria-label="Noisy scalar soma readings over the sequence of questions"></canvas><p class="neuron-detail" id="neuron-reading-list"></p><p class="neuron-detail">The message is a noisy scalar and the identity of the gate. No branch states are sent. An action-potential waveform is not modeled.</p></section>
+<section class="panel"><h2>4 · What remains plausible</h2><div class="belief-bars" id="neuron-beliefs" role="group" aria-label="Observer probabilities over the eight candidate histories"></div><p class="neuron-detail" id="neuron-belief-note"></p><p class="neuron-detail">The observer's memory of previous readings shapes the next question. Its known candidate dictionary is a real prior and storage cost.</p></section>
+</div>
+<section class="panel"><div class="eyebrow">Frozen held-out result</div><h2>The mechanism has a test, not only a picture.</h2>
+<p id="neuron-result-condition"></p><p class="neuron-detail">512 fresh history/noise/truth seeds per condition · 8 supplied candidates · 1 shared initial reading + 3 new readings · norm-matched gates.</p>
+<div class="neuron-table-wrap"><table class="neuron-table"><thead><tr><th>Strategy / control</th><th>Identified</th><th>Log loss ↓</th><th>Original-answer error ↓</th><th>State change</th></tr></thead><tbody id="neuron-result-rows"></tbody></table></div>
+<p id="neuron-result-verdict" class="neuron-detail"></p><div id="neuron-gates" class="neuron-verdict"></div>
+<p id="neuron-result-noise-note" class="neuron-detail"></p>
+<p class="neuron-detail">Original-answer error is normalized prediction error on eight unused gates applied to the pre-read memory. Erasing memory still scores against the original history, so predicting zero cannot count as successful recall.</p>
+<p class="neuron-detail"><a href="../NEURON_PROTOCOL.md">Frozen protocol</a> · <a href="../NEURON_RESULTS.md">Results and limits</a> · <a href="../results/memory_gate_soma.json">Machine-readable receipt</a></p>
+</section>
+<section class="panel"><h2>What this earns</h2><p>The abstract model supports a narrow mechanism: retained branch history becomes recoverable through selected somatic sums, and retaining previous answers modestly improves which gate is chosen next. Reads can also disturb that memory.</p>
+<p class="neuron-detail">This uses linear leaky traces, a programmed gate selector, a correct model and a known eight-history dictionary. It does not establish a learned neural gate, spike-waveform communication, unknown-history recovery or a new AI architecture. Twelve branch values are accompanied by 96 candidate-state values, eight belief values and shared model/catalogue storage in the observer. Selection evaluates all 24 candidate gates; computation is not matched to random selection.</p>
+<p class="neuron-detail">The original <a href="https://github.com/anttiluode/GeometricNeuronOriginReview">PerceptionLab ecg.json accident</a> supplies the historical question about observation inside feedback. Its aliasing/variance-controller pulse has different equations. <a href="https://github.com/anttiluode/AnttisBrain2">AnttisBrain2's moons</a>, <a href="https://github.com/anttiluode/MovingTarget2">MovingTarget2</a> and <a href="https://github.com/anttiluode/BrainAsInverseModeler">BrainAsInverseModeler</a> remain distinct contributors to this test.</p>
+</section>
+</div>
 <script>
 'use strict';
 const N=16,W=64,S=5,C=11,depth=.55,D=1.03,noise=.03;
@@ -69,4 +126,8 @@ document.getElementById('choose').onclick=()=>{let best={score:-1};let rng=1337;
  const cur=diff(c,off);if(cur.score>best.score)best={score:cur.score,c,off};}}
  cells=best.c;shift=best.off;document.getElementById('shift').value=String(shift*1000);update();};
 update();
-</script></body></html>
+</script>
+<script src="neuron-core.js"></script>
+<script src="neuron-data.js"></script>
+<script src="neuron-ui.js"></script>
+</body></html>

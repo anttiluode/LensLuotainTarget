@@ -1,0 +1,22 @@
+[hidden]{display:none!important}
+.view-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 28px;padding-bottom:18px;border-bottom:1px solid #33465d}
+.view-tabs button{background:transparent;color:#a9bed1;border-color:#33465d}.view-tabs button[aria-selected=true]{background:#244b50;color:#adf3dd;border-color:#62bdad}
+.brand{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:#8fa6bb;gap:16px}.brand strong{color:#d6e4ef;letter-spacing:.03em}
+#neuron-view h1{font-size:clamp(27px,4vw,42px);line-height:1.13;max-width:820px}
+#neuron-view .eyebrow{color:#82d9c3;text-transform:uppercase;font-size:11px;letter-spacing:.14em;font-weight:700;margin-bottom:8px}
+#neuron-view .lede{max-width:820px;margin-bottom:24px;font-size:16px}
+.neuron-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0 8px}.neuron-stat{padding:15px 18px;border:1px solid #33465d;background:#152332;border-radius:10px}.neuron-stat span{display:block;font-size:12px;color:#99b0c6}.neuron-stat strong{display:block;font-size:25px;color:#8ee4ce;margin-top:3px}
+.neuron-controls{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:flex-end;margin:18px 0}.neuron-controls label{font-size:13px;color:#bcd0df}.neuron-controls select{display:block;margin-top:6px;background:#21354a;color:#e3edf5;border:1px solid #536a82;border-radius:7px;padding:8px;font:inherit;max-width:100%}
+.neuron-controls .check{display:flex;align-items:center;gap:8px;min-height:37px}.neuron-controls input[type=checkbox]{width:17px;height:17px}
+.neuron-controls select:focus-visible,.neuron-controls input:focus-visible{outline:3px solid #9fc7ff;outline-offset:3px}
+.neuron-note{padding:10px 14px;border-left:3px solid #65bdad;background:#122432;font-size:13px}.neuron-note.warning{border-color:#dfb36e}
+.neuron-pair{display:flex;justify-content:space-between;gap:8px;color:#9db4c9;font-size:13px;flex-wrap:wrap}.neuron-pair strong{color:#80d9c3}.neuron-pair .orange{color:#efb474}
+.neuron-diagram{display:block;width:100%;height:auto;background:#101d2d;border-radius:10px;margin-top:18px}
+.branch-gates{display:grid;grid-template-columns:repeat(12,1fr);gap:5px;margin:14px 0}.branch-gates button{padding:8px 2px;font-size:12px;min-width:0;background:#21354a}.branch-gates button.selected{background:#387e6e;border-color:#83d9bf}.branch-gates button:disabled{opacity:.3;cursor:default}
+.neuron-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:14px}.neuron-actions .primary{background:#327363;border-color:#8bd4bc}.neuron-actions button:disabled{opacity:.4;cursor:default}.neuron-actions small{flex:1;min-width:200px}
+.belief-bars{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;margin-top:18px}.belief-col{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;color:#a5bacd}.belief-track{height:90px;width:100%;position:relative;background:#101d2d;border-radius:5px;overflow:hidden}.belief-fill{position:absolute;bottom:0;width:100%;background:#528b85;border-top:2px solid #8cd9c3;transition:height .2s}.belief-col.winner{color:#a8ead7}.belief-col.winner .belief-fill{background:#4ca88f}
+.neuron-table-wrap{overflow-x:auto}.neuron-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:18px}.neuron-table th{text-align:left;color:#9eb4c8;font-weight:500;padding:10px 8px;border-bottom:1px solid #4d647a}.neuron-table td{padding:11px 8px;border-bottom:1px solid #2c4156;white-space:nowrap}.neuron-table tr.active td{color:#9de7d1;background:#193632}.neuron-table small{font-size:11px}
+.neuron-verdict{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}.neuron-verdict span{font-size:12px;padding:6px 10px;border:1px solid #376958;border-radius:20px;color:#9eddc2;background:#15372e}.neuron-verdict .fail{border-color:#8a623b;background:#392b1e;color:#f1c18c}
+.neuron-detail{font-size:13px}.neuron-detail strong{color:#d2e3ed}.neuron-detail a{color:#9fc7ff}
+@media(max-width:600px){.neuron-stats{gap:6px}.neuron-stat{padding:12px 9px}.neuron-stat strong{font-size:20px}.neuron-stat span{font-size:11px}.branch-gates{grid-template-columns:repeat(6,1fr)}.neuron-controls{gap:10px 15px}.belief-bars{gap:4px}.belief-col{font-size:11px}.brand{font-size:12px}.neuron-table{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.belief-fill{transition:none}}

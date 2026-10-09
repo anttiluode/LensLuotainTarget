@@ -8,6 +8,17 @@
 
 [Open the interactive shadow-lens explainer!](https://anttiluode.github.io/LensLuotainTarget/site/index.html). Move and edit a coded mask to see how visually different hidden images can make almost the same unmasked wall signal but different masked signals. This is a geometric explainer, not the statistical benchmark.
 
+## Memory → gate → soma: the next tested mechanism
+
+[Open the memory, gate and soma experiment](https://anttiluode.github.io/LensLuotainTarget/site/index.html#neuron).
+Different stimulus histories leave twelve different leaky branch traces while sharing the same current input and initial soma sum. The receiver sees only the selected gate identity and noisy scalar output. Its retained belief over eight supplied histories guides the next gate.
+
+In **512 held-out seeds**, three new memory-guided reads identify **294/512 (57.4%)** histories, versus **208/512 (40.6%)** random, **216/512 (42.2%)** fixed and **272/512 (53.1%)** when gate selection discards previous answers. After-mixing and erased-memory controls remain near chance. With an imposed read-write effect, guided accuracy is **290/512 (56.6%)**, while mean relative branch-state disturbance reaches **16.4%**. Both conditions pass the frozen gates; the gain over the strong open-loop comparison is modest.
+
+This is an **abstract linear history/readout model**, with a known candidate dictionary, correct dynamics and a programmed selector. It is not a learned biological gate, a spike-waveform model or a demonstrated new AI architecture. The site exposes the two memories separately: retained branch history and the observer's retained answers. [Protocol](NEURON_PROTOCOL.md), [outcome ledger](NEURON_RESULTS.md), and [receipt](results/memory_gate_soma.json) preserve the controls and costs.
+
+The original [PerceptionLab ecg.json accident](https://github.com/anttiluode/GeometricNeuronOriginReview) supplies the observation-in-feedback question; its aliasing/variance-controller pulse has different equations. [AnttisBrain2's moons](https://github.com/anttiluode/AnttisBrain2), [MovingTarget2](https://github.com/anttiluode/MovingTarget2) and [BrainAsInverseModeler](https://github.com/anttiluode/BrainAsInverseModeler) contribute the lens, response-memory and soma-transmission questions.
+
 ## Why these three repositories meet
 
 - [Varjoluotain](https://github.com/anttiluode/Varjoluotain) implements the 2019 ordinary-camera computational-periscopy paper: a known occluder makes hidden image components more observable. Here we use a small original **1-D analogue**, not its validated 2-D transport or its photographs.

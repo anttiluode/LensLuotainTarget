@@ -43,3 +43,30 @@ Connection to active sensing: the world is not just an answer oracle. The observ
 If every allowed measurement has A_p(x-x')=0, no policy using those measurements can distinguish the two images above chance under equal priors, because the entire observation distributions agree. More computation cannot change that. If there exists a p with A_p(x-x') != 0, the difference becomes statistically identifiable with sufficient independent repetitions under the stated known-model and stationary-scene assumptions. The finite-budget performance still depends on signal/noise and policy.
 
 The claim does not transfer automatically to nonlinear perception, neural memories, language-model hallucinations or uncalibrated cameras. Those settings require evidence that the proposed query family is realizable and informative, and that their observation model is calibrated.
+
+## History traces, gated sum and read disturbance
+
+The new [memory/gate/soma gate](NEURON_PROTOCOL.md) uses branch traces
+`m_i(t+1)=lambda_i*m_i(t)+(1-lambda_i)*u(t)`.
+Its history-to-state map F is linear. Candidate histories are projected onto
+`ker(g_0^T F)` with a separate shared last-input constraint; they therefore
+agree in the initial un-gated read but differ in their retained traces.
+
+A norm-1 gate emits `y=g^T m + epsilon` and applies the imposed write
+`m'=m-eta*g*(g^T m)`. The observer propagates **all** candidates under the
+issued gate; it does not access the true state. Previous received outputs
+update its categorical belief p. The active choice maximizes
+`sum_h p_h*(g^T m_h - sum_j p_j*g^T m_j)^2` over unused gates.
+The open-loop comparison substitutes uniform selection weights while keeping
+the same dictionary, state propagation and downstream evidence accumulation.
+
+In the post-mix control every choice can only act on the already-combined
+scalar `g_0^T m`; gain 1 is used to keep this a pure information-loss control.
+The erased control replaces the retained physical state by zero. Both retain
+the receiver's original dictionary, so prior knowledge alone is insufficient
+to identify the unknown history. Their forecast target is the original
+pre-read state's answers on independent held-out gates, not the trivial
+zero state after erasure.
+
+These equations are a constructed observability test. They do not identify
+the original ECG-loop thermostat with a neuron, or derive dendritic biology.
