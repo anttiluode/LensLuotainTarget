@@ -49,4 +49,12 @@ Interfaces: Browser core exposes trace, posterior update, chooseGate, readState,
 - [x] Add the mechanism tab, responsive visualization, controls, receipts and limitations; retain the original shadow section and IDs.
 - [x] Run the full 20-test suite, JavaScript syntax checks and byte-identical receipt/fixture regeneration. Review the responsive stylesheet. A local browser is unavailable; interaction verification follows deployment on live Pages.
 - [x] Complete a fresh code/model review and fix its manual-then-automatic gate finding with a failing-then-passing regression over 72 combinations.
-- [ ] Publish the verified files using a guarded update of main; check reset, policies and the optical controls on live Pages.
+- [x] Publish the verified files using guarded updates of main; check reset, policies and the optical controls on live Pages. Keep current diagram sums distinct from received noisy readings.
+
+## Verification record
+
+- 20 reference/browser tests pass; the manual-then-automatic regression covers 72 combinations.
+- A fresh reviewer independently checked 288 scene/truth/policy/damage combinations and byte-identical held-out receipt regeneration. No Critical or Important findings remain.
+- Live Chrome controls passed: all strategies, manual then automatic, three-read budget, erasure, post-mix, damage switch, noise reset, history reset, another world, reset and keyboard tabs. The original shadow mask chooser improves displayed separation from 0.31 to 2.89 at fixed noise.
+- Desktop page width fits its 1348-pixel viewport. Responsive CSS was reviewed; a separate mobile viewport was not available in this browser API.
+- Unit-test and Pages workflows passed for the mechanism deployment. The original optical model files and historical receipt are preserved.

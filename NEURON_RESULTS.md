@@ -54,6 +54,8 @@ G6 is checked by the reference tests and cross-runtime tests: the browser uses t
 
 ## Reproduce
 
+Verification includes 20 passing reference/browser tests, a fresh code/model review, byte-identical receipt regeneration and live interaction checks of all policies, the null controls, reset behavior and the original optical controls. The current diagram sum is labeled before sensor noise; completed noisy readings are shown separately. Responsive CSS was reviewed; browser interaction was checked at a 1348-pixel desktop viewport, without a separate mobile viewport run.
+
 ```bash
 python -m unittest discover -s tests -v
 python neuron_experiment.py --output results/memory_gate_soma.json
