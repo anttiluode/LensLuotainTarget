@@ -70,3 +70,43 @@ zero state after erasure.
 
 These equations are a constructed observability test. They do not identify
 the original ECG-loop thermostat with a neuron, or derive dendritic biology.
+
+## Learned querying without a discrete history dictionary
+
+The [learned experiment](LEARNED_PROTOCOL.md) retains the same read/write plant,
+but replaces the categorical observer with a trained recurrent receiver:
+
+```math
+h_0=\tanh((y_0/0.1)a+b_0),\quad
+g_t=\frac{\exp(h_tP+B_t)}{\|\exp(h_tP+B_t)\|_2},
+```
+
+```math
+y_t=g_t^\top m_t+\epsilon_t,\quad
+m_{t+1}=(I-0.25g_tg_t^\top)m_t,\quad
+h_{t+1}=\tanh(h_tW_h+g_tW_x+(y_t/0.1)W_y+b).
+```
+
+After three reads, the receiver predicts the **original** branch state
+`m_hat=0.1*(h_3 D+c)`. A new final question produces `q^T m_hat` without
+changing the acquired observations, gates or receiver state. The future
+question is absent from the gating inputs. This interface assumes linear
+questions; it does not learn arbitrary question meanings.
+
+The training objective is
+
+```math
+J=\frac{\operatorname{mean}_q(q^\top\hat m-q^\top m_0)^2}{0.1^2}
+  +\frac{0.1\|m_3-m_0\|_2^2}{0.1^2}+0.001\times3.
+```
+
+The read-count term is constant because the budget is fixed. The displacement
+term penalizes movement, not proven irreversible forgetting: for unit `g` and
+eta=0.25, the read/write inverse is `I+(1/3)gg^T`.
+
+Only supervised training receives true states and the differentiable plant.
+At inference the receiver receives its own gate commands and scalar answers.
+The adaptive command is also fed into its next recurrent update; consequently
+its gate head adds nonlinear receiver computation as well as changing the
+physical measurement. The [results ledger](LEARNED_RESULTS.md) bounds the
+claim to the complete learned interface tested here.

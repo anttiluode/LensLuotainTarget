@@ -19,6 +19,16 @@ This is an **abstract linear history/readout model**, with a known candidate dic
 
 The original [PerceptionLab ecg.json accident](https://github.com/anttiluode/GeometricNeuronOriginReview) supplies the observation-in-feedback question; its aliasing/variance-controller pulse has different equations. [AnttisBrain2's moons](https://github.com/anttiluode/AnttisBrain2), [MovingTarget2](https://github.com/anttiluode/MovingTarget2) and [BrainAsInverseModeler](https://github.com/anttiluode/BrainAsInverseModeler) contribute the lens, response-memory and soma-transmission questions.
 
+## Learning the gate without the eight-history catalogue
+
+[Run the actual trained receiver](https://anttiluode.github.io/LensLuotainTarget/site/learned.html). It learns three gates from continuous stimulus histories, receives only noisy scalar answers and its own issued commands, and predicts answers to final linear questions it did not see while choosing those gates. Change the final question in the browser to reuse the same acquired readings.
+
+On **512 fresh histories with dense signed final questions**, averaged over **three training seeds**, adaptive gating reduced future-answer **MSE by 20.1% versus an optimized fixed schedule and 19.2% versus a comparable-resource recurrent receiver**. On a withheld switching-history family, the gains were **11.2% and 9.9%**. All five frozen gates passed. The full prediction-plus-disturbance objective improved too, although adaptive reads moved the retained state more than fixed reads.
+
+This establishes an advantage for this learned interface in a small known simulator. Training still uses exact simulator gradients and supervised answers, the twelve-coordinate linear-query interface is built in, and the comparison covers a specific tanh recurrent baseline. Adaptive commands also add nonlinear receiver computation and outbound communication. The result does not isolate every benefit of physical gate placement or establish general architecture superiority.
+
+[Frozen protocol](LEARNED_PROTOCOL.md), [complete results and limits](LEARNED_RESULTS.md), [receipt](results/learned_queries.json), and [all twelve selected weight sets and validation traces](results/learned_weights.json) are published. The older dictionary and optical experiments remain separate.
+
 ## Why these three repositories meet
 
 - [Varjoluotain](https://github.com/anttiluode/Varjoluotain) implements the 2019 ordinary-camera computational-periscopy paper: a known occluder makes hidden image components more observable. Here we use a small original **1-D analogue**, not its validated 2-D transport or its photographs.
@@ -59,6 +69,11 @@ python -m pip install -r requirements.txt
 python -m unittest discover -s tests -v
 python experiment.py                     # 64 held-out seeds, two new views
 python experiment.py --seeds 5 --output /tmp/lens-smoke.json
+python verify_learned_receipt.py         # reproduce learned held-out metrics; no retraining
+python make_learned_site_data.py --verify # export actual weights and verify browser parity
+# Optional full retraining: move the existing weights aside first.
+python learned_experiment.py train --weights /tmp/retrained-weights.json
+python learned_experiment.py evaluate --weights /tmp/retrained-weights.json --output /tmp/retrained-receipt.json
 ```
 
 `results/summary.json` gives the frozen aggregate results; the complete detailed per-seed receipt can be regenerated deterministically with the script. Only NumPy is required. The one-page browser visual uses plain JavaScript and runs locally.
