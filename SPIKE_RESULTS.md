@@ -174,3 +174,37 @@ The browser runs all three selected initializations for all eight models on
 the held-out test. It enforces eight additional reads and exposes new final
 questions only after the budget. Changing a final question reuses the same
 acquired receiver state.
+
+## Verification, deployment and live checks
+
+The fresh independent review found no Critical or Important blockers, reproduced
+all 24 selected validation losses (maximum discrepancy 2.78e-17), and reproduced
+the full held-out receipt. The final suite has **69 tests**, including actual
+trained Python/JavaScript parity and portable export-integrity checks.
+
+The first Pages deployment succeeded and the instrument worked live. GitHub's
+test job passed the numerical held-out reproduction but caught a portability
+defect: the verifier demanded byte-identical regenerated demo worlds. Different
+BLAS kernels reproduce branch values with insignificant last-bit differences
+(locally demonstrated at <=2.22e-16). The repaired verifier keeps checkpoint
+weights, scientific receipt, flags and metadata exact while allowing numerical
+roundoff only in regenerated demo arrays (rtol 1e-10, atol 1e-12). Tests reject
+even one-bit floating-point changes to a weight and material demo changes.
+Training sources, selected weights, frozen criteria and scientific outcomes did
+not change. The verification proof also pins the portable verifier's source.
+
+Live checks exercised all eight receiver choices, all three initializations and
+the retained/erased/common-sum controls. Read one changed the next threshold;
+read eight disabled further reads and enabled final questions. Changing a final
+question changed the forecast while preserving gates, thresholds, answers and
+read count. Replay restored zero reads and displacement. Transfer labels matched
+the receipt, the earlier graded page's return link worked, and the desktop page
+had no horizontal overflow or page-origin console errors. Browser-extension
+metadata errors were unrelated to the page.
+
+One minor presentation issue remains: the graded references put scalar answers
+in narrow binary-sized chips. Long scalar strings overrun the chips; complete
+values remain in their hover labels and final forecasts. Binary displays and
+all numerical results are unaffected.
+
+[Verified live preview](docs/images/learned-spikes.jpg).

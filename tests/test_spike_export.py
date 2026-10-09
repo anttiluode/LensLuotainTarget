@@ -43,11 +43,49 @@ const r=c.startEpisode(m,w);for(let i=0;i<8;i++)c.stepEpisode(r);out.push({predi
         value={'S1_passed':True,'receipt_sha256':'stale','sources':{}}
         self.assertFalse(self.e.verification_valid(value))
 
+    def test_inference_proof_pins_portable_export_checker(self):
+        self.assertIn('verify_spike_receipt.py',self.e.verification_sources())
+
     def test_skipped_or_empty_test_runs_cannot_seal(self):
         from make_learned_site_data import checked_test_count
         for output in ('Ran 0 tests\nOK','Ran 10 tests\nOK (skipped=1)'):
             with self.assertRaises(RuntimeError):
                 checked_test_count(subprocess.CompletedProcess([],0,'',output))
+
+    def portable_verifier(self):
+        import verify_spike_receipt
+        self.assertTrue(hasattr(verify_spike_receipt,'verify_export'),
+                        'export verification needs strict weights and portable demo numerics')
+        return verify_spike_receipt.verify_export
+
+    def test_export_accepts_only_roundoff_in_regenerated_demo_values(self):
+        from copy import deepcopy
+        expected=self.e.build_payload()
+        stored=deepcopy(expected)
+        value=stored['worlds'][0]['states'][0]
+        stored['worlds'][0]['states'][0]=float(np.nextafter(value,np.inf))
+        self.assertTrue(self.portable_verifier()(stored,expected))
+
+    def test_export_remains_exact_for_weights_and_scientific_receipt(self):
+        from copy import deepcopy
+        expected=self.e.build_payload()
+        for section in ('weights','receipt'):
+            changed=deepcopy(expected)
+            if section=='weights':
+                v=changed['models'][0]['params']['initial_w'][0]
+                changed['models'][0]['params']['initial_w'][0]=float(np.nextafter(v,np.inf))
+            else:
+                changed['receipt']['tables']['main']['adaptive']['mse']+=1e-15
+            with self.assertRaises(ValueError):
+                self.portable_verifier()(changed,expected)
+
+    def test_export_rejects_material_demo_change(self):
+        from copy import deepcopy
+        expected=self.e.build_payload()
+        changed=deepcopy(expected)
+        changed['worlds'][0]['states'][0]+=.001
+        with self.assertRaises(ValueError):
+            self.portable_verifier()(changed,expected)
 
 
 if __name__=='__main__':

@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parent
 
 
 def verification_sources():
-    names = ['site/spike-core.js','site/spike-ui.js','make_spike_site_data.py']
+    names = ['site/spike-core.js','site/spike-ui.js','make_spike_site_data.py','verify_spike_receipt.py']
     names += [str(path.relative_to(ROOT)) for path in sorted((ROOT/'tests').glob('test_*.py'))]
     return {name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in names}
 

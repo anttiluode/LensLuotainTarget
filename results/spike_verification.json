@@ -5,7 +5,8 @@
   "sources": {
     "site/spike-core.js": "cdf339874a8b0e7639955525b48ea4ba0c576f668408ff3ed7f3b3c856101c80",
     "site/spike-ui.js": "52a2c7ca2074483cb9162c9f77a907839948d2dd504b7e79f4e5d0503c919c94",
-    "make_spike_site_data.py": "65f9dc6d4b2864fafa092e721d951920e1aefe6954570be9219153e0998ad8df",
+    "make_spike_site_data.py": "e6851e3d247e3a8f629f2968baac6bf7b95f18c394326956ab7c3680307504e2",
+    "verify_spike_receipt.py": "c752de2cbc76f4b583fb24f907bd62ec0b5f6df86488d714b46caf9a23f7df39",
     "tests/test_core.py": "50ba12ee9db240517ebefa27e11745e0b5ff1242d897c22ac27eb66772322a40",
     "tests/test_learned_browser.py": "a4376dd97f50824c95f80f20d6a53af763e05b52d1656bdbf0402ee5d2f19288",
     "tests/test_learned_experiment.py": "c214f914deaccba07dc780541fdd49c2811027ba757c0339ae33f5019681149d",
@@ -17,11 +18,11 @@
     "tests/test_neuron_browser.py": "cb2bee4bc80a0167d5eb99356eb1157c8f53be9557600cbd42a7c72e244e4e06",
     "tests/test_spike_browser.py": "dc75a55f5e778606c5fedddd7068f06667d7638c246e4712e601e69881ee16ef",
     "tests/test_spike_experiment.py": "700b6ba3ad7286bdd588f3cbd856cf4c42c345032c1cd4ec6db1f2da9093647d",
-    "tests/test_spike_export.py": "78c1ab1142661a70560585b7f160cd036957e90fd9c2631d3eef6efec14a7559",
+    "tests/test_spike_export.py": "50f67cd0f6fe4e0f5d49733bf67d6be3fa06acbeffa1f2e8d92c5aeab4e8c414",
     "tests/test_spike_receiver.py": "bfe8bf644f4c05321047ebdd1cc7b796632f47756f10aa269c1d02454bd3342e",
     "tests/test_spike_training.py": "5d1f3e5500e38464ac7fbb0d7b66b5337ad554481171b89b1f2d43689a21330b"
   },
   "command": "python -m unittest discover -s tests -v",
-  "tests": 65,
+  "tests": 69,
   "note": "Exact expected gradients, observation-only boundary, matched resources, hard bits, budget and actual trained Python/JavaScript parity passed without skips."
 }
